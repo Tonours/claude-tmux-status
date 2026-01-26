@@ -42,6 +42,7 @@ load_config() {
     fi
 
     validate_config "$CONFIG_FILE"
+    # shellcheck source=/dev/null
     source "$CONFIG_FILE"
 
     if [[ -z "${CLAUDE_SESSION_KEY:-}" ]] || [[ -z "${CLAUDE_ORG_ID:-}" ]]; then

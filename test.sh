@@ -159,7 +159,8 @@ info "Checking utilization boundary colors..."
 
 test_color() {
     local util="$1" expected_color="$2"
-    local mock_dir=$(mktemp -d)
+    local mock_dir
+    mock_dir=$(mktemp -d)
     cat > "$mock_dir/claude-usage.sh" << EOF
 #!/bin/bash
 echo "${util}|2026-01-26T15:00:00+00:00"
@@ -167,7 +168,8 @@ EOF
     chmod +x "$mock_dir/claude-usage.sh"
 
     export CLAUDE_USAGE_SCRIPT="$mock_dir/claude-usage.sh"
-    local result=$("$SCRIPT_DIR/tmux-status.sh" 2>/dev/null || true)
+    local result
+    result=$("$SCRIPT_DIR/tmux-status.sh" 2>/dev/null || true)
     unset CLAUDE_USAGE_SCRIPT
     rm -rf "$mock_dir"
 
